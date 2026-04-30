@@ -6,8 +6,8 @@
 <section class="page-header">
   <div class="container">
     <span class="eyebrow">Projects</span>
-    <h1>Selected cybersecurity and cloud-focused work</h1>
-    <p>These sample projects are written to sound professional now, while still being easy to replace with your exact class and personal work later.</p>
+    <h1>Projects tied to my real repositories and current interests</h1>
+    <p>Each project below maps to a public GitHub repository and highlights a different strength: security analytics, modern front-end development, and AWS-ready Flask deployment.</p>
   </div>
 </section>
 
@@ -16,11 +16,17 @@
     <div class="row g-4">
       {% for project in projects %}
         <div class="col-lg-4">
-          <article class="content-card h-100">
-            <p class="card-kicker">{{ project.stack }}</p>
+          <article class="content-card h-100 project-card">
+            <p class="card-kicker">{{ project.kicker }}</p>
             <h2>{{ project.title }}</h2>
             <p>{{ project.summary }}</p>
-            <p class="card-outcome">{{ project.outcome }}</p>
+            <div class="tag-row">
+              {% for tag in project.tags %}
+                <span class="tag-pill">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            <p class="card-outcome">{{ project.impact }}</p>
+            <a class="card-link" href="{{ project.repo_url }}" target="_blank" rel="noreferrer">Open GitHub Repository</a>
           </article>
         </div>
       {% endfor %}
@@ -28,4 +34,3 @@
   </div>
 </section>
 {% endblock %}
-

@@ -53,6 +53,43 @@ def test_public_pages_load(client):
         assert response.status_code == 200
 
 
+def test_updated_portfolio_content_is_rendered(client):
+    home_response = client.get("/")
+    assert b"Vishnu Gangula | CyberFolio" in home_response.data
+    assert b"Download Redacted Resume" in home_response.data
+
+    about_response = client.get("/about")
+    assert b"builder's mindset" in about_response.data
+    assert b"linkedin.com/in/vishnugangula" in about_response.data
+
+    resume_response = client.get("/resume")
+    assert b"Information Security Intern" in resume_response.data
+    assert b"The University of Texas at Dallas" in resume_response.data
+
+
+def test_projects_page_links_to_selected_repositories(client):
+    response = client.get("/projects")
+    body = response.data.decode("utf-8")
+
+    assert "ASA Log Sentinel" in body
+    assert "https://github.com/vishnu2222222/ASA-Log-Sentinel" in body
+    assert "https://github.com/vishnu2222222/Workout-Tracker-" in body
+    assert "https://github.com/vishnu2222222/AWS-Class-Project" in body
+
+
+def test_certifications_page_uses_resume_based_content(client):
+    response = client.get("/certifications")
+    assert b"Qualys Vulnerability Management, Detection &amp; Response (VMDR)" in response.data
+    assert b"CyberDefender Level 1 (CCDL1)" in response.data
+    assert b"CompTIA Security+" in response.data
+
+
+def test_redacted_resume_is_served(client):
+    response = client.get("/static/resume/vishnu-gangula-resume-redacted.pdf")
+    assert response.status_code == 200
+    assert response.mimetype == "application/pdf"
+
+
 def test_contact_submission_is_saved(client, app):
     response = client.post(
         "/contact",

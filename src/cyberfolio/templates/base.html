@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{{ site_name }}{% endblock %}</title>
-    <meta name="description" content="Cybersecurity portfolio and services website built with Flask and AWS-ready deployment.">
+    <meta name="description" content="{{ site_description }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -12,11 +12,17 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   </head>
   <body>
+    <div class="page-glow page-glow-one"></div>
+    <div class="page-glow page-glow-two"></div>
+
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top site-nav">
       <div class="container">
         <a class="navbar-brand brand-lockup" href="{{ url_for('home') }}">
-          <span class="brand-mark">CF</span>
-          <span>{{ site_name }}</span>
+          <span class="brand-mark">VG</span>
+          <span class="brand-text">
+            <strong>Vishnu Gangula</strong>
+            <small>CyberFolio</small>
+          </span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -28,8 +34,8 @@
             <li class="nav-item"><a class="nav-link {% if request.endpoint == 'resume' %}active{% endif %}" href="{{ url_for('resume') }}">Resume</a></li>
             <li class="nav-item"><a class="nav-link {% if request.endpoint == 'certifications' %}active{% endif %}" href="{{ url_for('certifications') }}">Certifications</a></li>
             <li class="nav-item"><a class="nav-link {% if request.endpoint == 'projects' %}active{% endif %}" href="{{ url_for('projects') }}">Projects</a></li>
-            <li class="nav-item"><a class="nav-link {% if request.endpoint == 'blog' %}active{% endif %}" href="{{ url_for('blog') }}">Blog</a></li>
-            <li class="nav-item"><a class="nav-link {% if request.endpoint == 'services' %}active{% endif %}" href="{{ url_for('services') }}">Services</a></li>
+            <li class="nav-item"><a class="nav-link {% if request.endpoint == 'blog' %}active{% endif %}" href="{{ url_for('blog') }}">Insights</a></li>
+            <li class="nav-item"><a class="nav-link {% if request.endpoint == 'services' %}active{% endif %}" href="{{ url_for('services') }}">Focus Areas</a></li>
             <li class="nav-item"><a class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}" href="{{ url_for('contact') }}">Contact</a></li>
           </ul>
         </div>
@@ -55,12 +61,17 @@
 
     <footer class="site-footer">
       <div class="container footer-grid">
-        <div>
+        <div class="footer-brand">
           <p class="footer-title">{{ site_name }}</p>
-          <p class="footer-copy">A cloud-ready cybersecurity portfolio focused on practical defense, documentation, and secure deployment.</p>
+          <p class="footer-copy">Security work centered on vulnerability management, AWS deployment, and documentation that helps teams operate clearly.</p>
+        </div>
+        <div class="footer-socials">
+          {% for link in social_links %}
+            <a href="{{ link.url }}" target="_blank" rel="noreferrer">{{ link.label }}</a>
+          {% endfor %}
         </div>
         <div class="footer-meta">
-          <span>Built with Flask, Bootstrap, SQLite, and AWS deployment in mind.</span>
+          <span>Built with Flask, Gunicorn, Nginx, SQLite, and AWS Lightsail in mind.</span>
           <a href="{{ url_for('admin_login') }}" class="footer-admin-link">Admin</a>
         </div>
       </div>
@@ -70,4 +81,3 @@
     {% block scripts %}{% endblock %}
   </body>
 </html>
-

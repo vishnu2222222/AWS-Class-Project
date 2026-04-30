@@ -5,9 +5,9 @@
 {% block content %}
 <section class="page-header">
   <div class="container">
-    <span class="eyebrow">Skills / Certifications</span>
-    <h1>Certifications, coursework, and ongoing preparation</h1>
-    <p>This page highlights formal learning goals and hands-on work that support a cybersecurity career path.</p>
+    <span class="eyebrow">Certifications</span>
+    <h1>Completed certifications and active learning in progress</h1>
+    <p>This page keeps the current state simple and honest: one completed certification and two in-progress credentials that align with my security career direction.</p>
   </div>
 </section>
 
@@ -16,8 +16,8 @@
     <div class="row g-4">
       {% for cert in certifications %}
         <div class="col-md-4">
-          <article class="content-card h-100">
-            <p class="card-kicker">{{ cert.status }}</p>
+          <article class="content-card h-100 cert-card">
+            <span class="status-badge {% if cert.completed %}status-complete{% else %}status-progress{% endif %}">{{ cert.status }}</span>
             <h2>{{ cert.name }}</h2>
             <p>{{ cert.details }}</p>
           </article>
@@ -27,4 +27,3 @@
   </div>
 </section>
 {% endblock %}
-

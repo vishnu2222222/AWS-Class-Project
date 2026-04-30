@@ -4,42 +4,84 @@
 
 {% block content %}
 <section class="page-header">
-  <div class="container">
-    <span class="eyebrow">Resume / Experience</span>
-    <h1>Highlights, strengths, and career direction</h1>
-    <p>This section summarizes the kind of work I am preparing for: cloud security, entry-level SOC support, secure deployment, and practical cybersecurity documentation.</p>
+  <div class="container page-header-inline">
+    <div>
+      <span class="eyebrow">Resume / Experience</span>
+      <h1>Selected experience, skills, and career direction</h1>
+      <p>This public version focuses on the experience and skills I want to highlight while keeping phone and email off the site.</p>
+    </div>
+    <a class="btn btn-accent" href="{{ url_for('static', filename=resume_download_filename) }}" target="_blank" rel="noreferrer">Download Redacted Resume</a>
   </div>
 </section>
 
 <section class="content-section">
   <div class="container">
     <div class="row g-4">
-      <div class="col-lg-7">
+      <div class="col-xl-4">
         <article class="content-card h-100">
-          <h2>Professional profile</h2>
-          <ul class="feature-list">
-            {% for highlight in highlights %}
-              <li>{{ highlight }}</li>
-            {% endfor %}
-          </ul>
-          <h3 class="mt-4">Sample experience framing</h3>
-          <p><strong>Security and Cloud Projects:</strong> Built web applications and class projects that demonstrate cloud deployment, data persistence, administrative access controls, and practical AWS usage.</p>
-          <p><strong>Technical Communication:</strong> Documented setup steps, deployment paths, and operational choices so projects can be reviewed and maintained clearly.</p>
-        </article>
-      </div>
-      <div class="col-lg-5">
-        <article class="content-card h-100">
-          <h2>Technical toolkit</h2>
-          <div class="chip-grid">
-            {% for skill in skills %}
-              <span class="skill-chip">{{ skill }}</span>
+          <h2>Education</h2>
+          <p class="detail-label">{{ education.dates }}</p>
+          <h3>{{ education.school }}</h3>
+          <p>{{ education.degree }}</p>
+
+          <h2 class="section-block-title">Profile</h2>
+          <p>{{ profile.headline }}</p>
+          <p class="support-note">{{ profile.subheadline }}</p>
+
+          <h2 class="section-block-title">Certifications snapshot</h2>
+          <div class="stack-list">
+            {% for cert in certifications %}
+              <div class="stack-item">
+                <span class="status-badge {% if cert.completed %}status-complete{% else %}status-progress{% endif %}">{{ cert.status }}</span>
+                <strong>{{ cert.name }}</strong>
+              </div>
             {% endfor %}
           </div>
-          <p class="support-note mt-4">You can replace this section later with your exact coursework, experience bullets, GPA, internships, or downloadable resume link.</p>
         </article>
+      </div>
+      <div class="col-xl-8">
+        {% for role in experience %}
+          <article class="content-card timeline-card {% if not loop.last %}mb-4{% endif %}">
+            <div class="timeline-header">
+              <div>
+                <p class="card-kicker">{{ role.dates }}</p>
+                <h2>{{ role.role }}</h2>
+                <p class="role-meta">{{ role.company }} | {{ role.location }}</p>
+              </div>
+            </div>
+            <p>{{ role.summary }}</p>
+            <ul class="feature-list">
+              {% for bullet in role.bullets %}
+                <li>{{ bullet }}</li>
+              {% endfor %}
+            </ul>
+          </article>
+        {% endfor %}
       </div>
     </div>
   </div>
 </section>
-{% endblock %}
 
+<section class="content-section section-muted">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Technical Toolkit</span>
+      <h2>Tools and platforms I use most</h2>
+    </div>
+    <div class="row g-4">
+      {% for group in skill_groups %}
+        <div class="col-lg-6">
+          <article class="content-card h-100">
+            <h3>{{ group.title }}</h3>
+            <div class="chip-grid">
+              {% for item in group["items"] %}
+                <span class="skill-chip">{{ item }}</span>
+              {% endfor %}
+            </div>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

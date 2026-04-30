@@ -7,7 +7,7 @@
   <div class="container">
     <span class="eyebrow">Contact</span>
     <h1>Start a conversation</h1>
-    <p>This form stores submissions in SQLite and powers the dynamic admin/messages page required for the project’s database functionality.</p>
+    <p>The form on this page stores submissions in SQLite and powers the protected admin dashboard, so it doubles as both a contact method and the site's dynamic database feature.</p>
   </div>
 </section>
 
@@ -43,7 +43,16 @@
       </div>
       <div class="col-lg-5">
         <article class="content-card h-100">
-          <h2>Why this matters for the project</h2>
+          <h2>Other ways to connect</h2>
+          <div class="link-list mb-4">
+            {% for link in social_links %}
+              <a class="detail-link" href="{{ link.url }}" target="_blank" rel="noreferrer">
+                <span>{{ link.label }}</span>
+                <strong>{{ link.display }}</strong>
+              </a>
+            {% endfor %}
+          </div>
+          <h3>What this page demonstrates</h3>
           <ul class="feature-list">
             <li>Shows server-side validation</li>
             <li>Stores submissions in a database table</li>
@@ -73,4 +82,3 @@
   })();
 </script>
 {% endblock %}
-

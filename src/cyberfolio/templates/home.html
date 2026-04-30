@@ -7,39 +7,47 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-7">
-        <span class="eyebrow">Cloud Security Portfolio</span>
-        <h1 class="display-4 hero-title">Building secure, practical, AWS-ready cybersecurity work.</h1>
-        <p class="hero-copy">This website highlights projects, skills, certifications, and services centered on cloud security, documentation, and dependable deployment. It is also a live demonstration of a database-backed Flask application hosted with AWS in mind.</p>
+        <span class="eyebrow">Cybersecurity Portfolio</span>
+        <h1 class="display-4 hero-title">Vulnerability management, AWS deployment, and security work built to be useful.</h1>
+        <p class="hero-copy">{{ profile.summary }} {{ profile.subheadline }}</p>
         <div class="hero-actions">
           <a class="btn btn-accent btn-lg" href="{{ url_for('projects') }}">View Projects</a>
-          <a class="btn btn-outline-light btn-lg" href="{{ url_for('contact') }}">Contact Me</a>
+          <a class="btn btn-outline-light btn-lg" href="{{ url_for('resume') }}">View Resume</a>
+          <a class="btn btn-ghost btn-lg" href="{{ url_for('static', filename=resume_download_filename) }}" target="_blank" rel="noreferrer">Download Redacted Resume</a>
+        </div>
+        <div class="social-strip">
+          {% for link in social_links %}
+            <a class="social-link" href="{{ link.url }}" target="_blank" rel="noreferrer">{{ link.label }}</a>
+          {% endfor %}
         </div>
         <div class="hero-metrics">
-          <div class="metric-card">
-            <span class="metric-value">9</span>
-            <span class="metric-label">Core pages</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-value">1</span>
-            <span class="metric-label">Dynamic contact workflow</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-value">AWS</span>
-            <span class="metric-label">Deployment target</span>
-          </div>
+          {% for metric in metrics %}
+            <div class="metric-card">
+              <span class="metric-value">{{ metric.value }}</span>
+              <span class="metric-label">{{ metric.label }}</span>
+            </div>
+          {% endfor %}
         </div>
       </div>
       <div class="col-lg-5">
         <div class="hero-panel">
           <p class="panel-label">Current focus</p>
           <ul class="signal-list">
-            <li>Secure cloud deployment foundations</li>
-            <li>Portfolio projects with real operational value</li>
-            <li>Clear communication during incident response</li>
+            {% for item in profile.current_focus %}
+              <li>{{ item }}</li>
+            {% endfor %}
           </ul>
+          <div class="profile-note">
+            <span class="profile-note-label">Based in</span>
+            <strong>{{ profile.location }}</strong>
+          </div>
+          <div class="profile-note">
+            <span class="profile-note-label">Education</span>
+            <strong>{{ profile.education_short }}</strong>
+          </div>
           <div class="status-strip">
             <span class="status-dot"></span>
-            <span>Available for internships, project collaboration, and entry-level security work</span>
+            <span>{{ profile.availability }}</span>
           </div>
         </div>
       </div>
@@ -51,16 +59,23 @@
   <div class="container">
     <div class="section-heading">
       <span class="eyebrow">Featured Work</span>
-      <h2>Projects that show practical security thinking</h2>
+      <h2>Projects that connect security thinking with shipped work</h2>
+      <p class="section-copy">These are the three repositories I am using to represent my current portfolio: security analytics, front-end product work, and AWS-hosted deployment.</p>
     </div>
     <div class="row g-4">
       {% for project in projects %}
-        <div class="col-md-6">
-          <article class="content-card h-100">
-            <p class="card-kicker">{{ project.stack }}</p>
+        <div class="col-lg-4">
+          <article class="content-card h-100 project-card">
+            <p class="card-kicker">{{ project.kicker }}</p>
             <h3>{{ project.title }}</h3>
             <p>{{ project.summary }}</p>
-            <p class="card-outcome">{{ project.outcome }}</p>
+            <div class="tag-row">
+              {% for tag in project.tags %}
+                <span class="tag-pill">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            <p class="card-outcome">{{ project.impact }}</p>
+            <a class="card-link" href="{{ project.repo_url }}" target="_blank" rel="noreferrer">View GitHub Repository</a>
           </article>
         </div>
       {% endfor %}
@@ -71,15 +86,36 @@
 <section class="content-section section-muted">
   <div class="container">
     <div class="section-heading">
-      <span class="eyebrow">Services</span>
-      <h2>Focused help for cloud and security fundamentals</h2>
+      <span class="eyebrow">Experience Snapshot</span>
+      <h2>How my recent work translates into this portfolio</h2>
     </div>
     <div class="row g-4">
-      {% for service in services %}
-        <div class="col-md-6">
+      {% for role in experience %}
+        <div class="col-lg-6">
           <article class="content-card h-100">
-            <h3>{{ service.title }}</h3>
-            <p>{{ service.description }}</p>
+            <p class="card-kicker">{{ role.dates }}</p>
+            <h3>{{ role.role }}</h3>
+            <p class="role-meta">{{ role.company }} | {{ role.location }}</p>
+            <p>{{ role.summary }}</p>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Focus Areas</span>
+      <h2>Where I contribute best</h2>
+    </div>
+    <div class="row g-4">
+      {% for area in focus_areas %}
+        <div class="col-lg-4">
+          <article class="content-card h-100">
+            <h3>{{ area.title }}</h3>
+            <p>{{ area.description }}</p>
           </article>
         </div>
       {% endfor %}
@@ -87,4 +123,3 @@
   </div>
 </section>
 {% endblock %}
-

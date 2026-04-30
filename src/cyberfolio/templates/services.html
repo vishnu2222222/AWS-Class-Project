@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}Services | {{ site_name }}{% endblock %}
+{% block title %}Focus Areas | {{ site_name }}{% endblock %}
 
 {% block content %}
 <section class="page-header">
   <div class="container">
-    <span class="eyebrow">Services</span>
-    <h1>Entry-level security services with a practical focus</h1>
-    <p>This page presents the website as a personal brand and services platform, which aligns well with the project rubric while staying believable for a student portfolio.</p>
+    <span class="eyebrow">Focus Areas</span>
+    <h1>Ways I like to contribute in security and cloud work</h1>
+    <p>This page keeps the route required for the project while presenting the content more authentically as the work I enjoy doing and developing further.</p>
   </div>
 </section>
 
 <section class="content-section">
   <div class="container">
     <div class="row g-4">
-      {% for service in services %}
+      {% for area in focus_areas %}
         <div class="col-lg-4">
           <article class="content-card h-100">
-            <h2>{{ service.title }}</h2>
-            <p>{{ service.description }}</p>
+            <h2>{{ area.title }}</h2>
+            <p>{{ area.description }}</p>
           </article>
         </div>
       {% endfor %}
@@ -26,4 +26,3 @@
   </div>
 </section>
 {% endblock %}
-

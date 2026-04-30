@@ -6,8 +6,8 @@
 <section class="page-header">
   <div class="container">
     <span class="eyebrow">About Me</span>
-    <h1>Cybersecurity student with a builder’s mindset</h1>
-    <p>I am developing a portfolio around cloud security, secure web deployment, and communication-heavy security work. My goal is to combine technical execution with documentation that makes systems easier to defend and maintain.</p>
+    <h1>Cybersecurity student with a builder's mindset and an operations-first approach</h1>
+    <p>{{ profile.summary }}</p>
   </div>
 </section>
 
@@ -16,17 +16,20 @@
     <div class="row g-4">
       <div class="col-lg-7">
         <article class="content-card h-100">
-          <h2>What this site represents</h2>
-          <p>This project is both a portfolio website and a demonstration of full-stack cloud deployment fundamentals. It includes server-side rendering, a database-backed contact form, session-based admin access, and an AWS-ready deployment path using Lightsail.</p>
-          <p>My broader interest is in security work that is hands-on, measurable, and useful to teams: reducing configuration risk, improving documentation, and making response workflows easier to execute under pressure.</p>
+          <h2>What this portfolio represents</h2>
+          <p>This site is meant to feel like the kind of work I want to keep doing: practical, measurable, and grounded in real systems. It highlights the overlap between security operations, cloud deployment, and technical communication.</p>
+          <p>I am especially interested in work where better visibility and clearer process reduce risk. That includes vulnerability management, exposure reduction, incident support, and infrastructure that is simple enough to run reliably.</p>
         </article>
       </div>
       <div class="col-lg-5">
         <article class="content-card h-100">
-          <h2>Core skills</h2>
-          <div class="chip-grid">
-            {% for skill in skills %}
-              <span class="skill-chip">{{ skill }}</span>
+          <h2>Public profiles</h2>
+          <div class="link-list">
+            {% for link in social_links %}
+              <a class="detail-link" href="{{ link.url }}" target="_blank" rel="noreferrer">
+                <span>{{ link.label }}</span>
+                <strong>{{ link.display }}</strong>
+              </a>
             {% endfor %}
           </div>
         </article>
@@ -34,5 +37,42 @@
     </div>
   </div>
 </section>
-{% endblock %}
 
+<section class="content-section section-muted">
+  <div class="container">
+    <div class="row g-4">
+      {% for section in about_sections %}
+        <div class="col-lg-4">
+          <article class="content-card h-100">
+            <h2>{{ section.title }}</h2>
+            <p>{{ section.body }}</p>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Toolkit</span>
+      <h2>Core tools and platforms I work with</h2>
+    </div>
+    <div class="row g-4">
+      {% for group in skill_groups %}
+        <div class="col-lg-6">
+          <article class="content-card h-100">
+            <h3>{{ group.title }}</h3>
+            <div class="chip-grid">
+              {% for item in group["items"] %}
+                <span class="skill-chip">{{ item }}</span>
+              {% endfor %}
+            </div>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

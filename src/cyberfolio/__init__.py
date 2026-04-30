@@ -9,96 +9,24 @@ from pathlib import Path
 
 from flask import Flask, flash, g, redirect, render_template, request, session, url_for
 
+from .content import (
+    ABOUT_SECTIONS,
+    BLOG_POSTS,
+    CERTIFICATIONS,
+    EDUCATION,
+    EXPERIENCE,
+    FOCUS_AREAS,
+    HOME_METRICS,
+    PROFILE,
+    PROJECTS,
+    REDIRECTED_RESUME_FILENAME,
+    SITE_DESCRIPTION,
+    SITE_NAME,
+    SKILL_GROUPS,
+    SOCIAL_LINKS,
+)
+
 EMAIL_PATTERN = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
-
-PROJECTS = [
-    {
-        "title": "AWS Hardening Lab",
-        "summary": "A cloud security lab focused on IAM least privilege, S3 access controls, and network segmentation.",
-        "stack": "AWS IAM, S3, VPC",
-        "outcome": "Created a reusable checklist for locking down basic AWS workloads."
-    },
-    {
-        "title": "Phishing Awareness Toolkit",
-        "summary": "A lightweight awareness program with email examples, reporting guidance, and user training materials.",
-        "stack": "Security awareness, documentation, incident workflow",
-        "outcome": "Reduced confusion around suspicious emails through simple step-by-step guidance."
-    },
-    {
-        "title": "Incident Response Playbook Draft",
-        "summary": "A starter playbook for triage, containment, and evidence preservation during common incidents.",
-        "stack": "IR process, logging, communication",
-        "outcome": "Turned ad hoc response notes into a repeatable process."
-    },
-]
-
-CERTIFICATIONS = [
-    {
-        "name": "CompTIA Security+",
-        "status": "In progress / target certification",
-        "details": "Focused on foundational security operations, risk management, and network defense."
-    },
-    {
-        "name": "AWS Cloud Practitioner",
-        "status": "Planned",
-        "details": "Supports cloud literacy, pricing awareness, and AWS service selection."
-    },
-    {
-        "name": "Hands-on labs and course projects",
-        "status": "Active",
-        "details": "Portfolio projects in Linux, networking, AWS, and web application security."
-    },
-]
-
-BLOG_POSTS = [
-    {
-        "title": "Why IAM Misconfigurations Stay Dangerous",
-        "date": "April 2026",
-        "excerpt": "A practical look at how small permission mistakes create outsized risk in cloud environments."
-    },
-    {
-        "title": "What I Learned Building a Security Portfolio Site",
-        "date": "April 2026",
-        "excerpt": "Designing a portfolio is also an exercise in threat thinking, uptime planning, and defensive defaults."
-    },
-    {
-        "title": "Three Habits That Improve Incident Readiness",
-        "date": "March 2026",
-        "excerpt": "Good logging, documented ownership, and simple response checklists go further than most teams expect."
-    },
-]
-
-SERVICES = [
-    {
-        "title": "Portfolio Website Reviews",
-        "description": "Security-minded feedback on personal sites, contact flows, and basic hardening."
-    },
-    {
-        "title": "Cloud Security Starter Audits",
-        "description": "Entry-level reviews of IAM, storage exposure, and common AWS misconfigurations."
-    },
-    {
-        "title": "Incident Response Documentation",
-        "description": "Simple playbooks and communication checklists for small teams and student organizations."
-    },
-]
-
-RESUME_HIGHLIGHTS = [
-    "Cybersecurity student building practical cloud and web security projects.",
-    "Comfortable with Python, Linux basics, Flask, AWS fundamentals, and documentation-driven workflows.",
-    "Interested in security operations, cloud defense, and secure application deployment.",
-]
-
-SKILLS = [
-    "Python",
-    "Flask",
-    "HTML / CSS / Bootstrap",
-    "AWS Lightsail",
-    "SQLite",
-    "Linux fundamentals",
-    "Basic IAM and access control",
-    "Technical writing",
-]
 
 
 def create_app(test_config: dict | None = None) -> Flask:
@@ -123,19 +51,43 @@ def create_app(test_config: dict | None = None) -> Flask:
 
     @app.context_processor
     def inject_site_context() -> dict:
-        return {"site_name": "CyberFolio"}
+        return {
+            "site_name": SITE_NAME,
+            "site_description": SITE_DESCRIPTION,
+            "social_links": SOCIAL_LINKS,
+            "resume_download_filename": REDIRECTED_RESUME_FILENAME,
+        }
 
     @app.route("/")
     def home():
-        return render_template("home.html", projects=PROJECTS[:2], services=SERVICES[:2])
+        return render_template(
+            "home.html",
+            profile=PROFILE,
+            metrics=HOME_METRICS,
+            projects=PROJECTS,
+            focus_areas=FOCUS_AREAS,
+            experience=EXPERIENCE,
+        )
 
     @app.route("/about")
     def about():
-        return render_template("about.html", skills=SKILLS)
+        return render_template(
+            "about.html",
+            profile=PROFILE,
+            about_sections=ABOUT_SECTIONS,
+            skill_groups=SKILL_GROUPS,
+        )
 
     @app.route("/resume")
     def resume():
-        return render_template("resume.html", highlights=RESUME_HIGHLIGHTS, skills=SKILLS)
+        return render_template(
+            "resume.html",
+            profile=PROFILE,
+            education=EDUCATION,
+            experience=EXPERIENCE,
+            skill_groups=SKILL_GROUPS,
+            certifications=CERTIFICATIONS,
+        )
 
     @app.route("/certifications")
     def certifications():
@@ -151,7 +103,7 @@ def create_app(test_config: dict | None = None) -> Flask:
 
     @app.route("/services")
     def services():
-        return render_template("services.html", services=SERVICES)
+        return render_template("services.html", focus_areas=FOCUS_AREAS)
 
     @app.route("/contact", methods=["GET", "POST"])
     def contact():
