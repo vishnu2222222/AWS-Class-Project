@@ -50,13 +50,24 @@ def create_app(test_config: dict | None = None) -> Flask:
     with app.app_context():
         init_db()
 
+    def asset_version(filename: str) -> int:
+        asset_path = Path(app.root_path) / "static" / filename
+        try:
+            return int(asset_path.stat().st_mtime)
+        except OSError:
+            return 0
+
     @app.context_processor
     def inject_site_context() -> dict:
+        def asset_url(filename: str) -> str:
+            return url_for("static", filename=filename, v=asset_version(filename))
+
         return {
             "site_name": SITE_NAME,
             "site_description": SITE_DESCRIPTION,
             "social_links": SOCIAL_LINKS,
             "resume_download_filename": REDIRECTED_RESUME_FILENAME,
+            "asset_url": asset_url,
         }
 
     @app.route("/")
