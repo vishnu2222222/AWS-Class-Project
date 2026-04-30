@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Resume | {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Resume / Experience</span>
+    <h1>Highlights, strengths, and career direction</h1>
+    <p>This section summarizes the kind of work I am preparing for: cloud security, entry-level SOC support, secure deployment, and practical cybersecurity documentation.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <article class="content-card h-100">
+          <h2>Professional profile</h2>
+          <ul class="feature-list">
+            {% for highlight in highlights %}
+              <li>{{ highlight }}</li>
+            {% endfor %}
+          </ul>
+          <h3 class="mt-4">Sample experience framing</h3>
+          <p><strong>Security and Cloud Projects:</strong> Built web applications and class projects that demonstrate cloud deployment, data persistence, administrative access controls, and practical AWS usage.</p>
+          <p><strong>Technical Communication:</strong> Documented setup steps, deployment paths, and operational choices so projects can be reviewed and maintained clearly.</p>
+        </article>
+      </div>
+      <div class="col-lg-5">
+        <article class="content-card h-100">
+          <h2>Technical toolkit</h2>
+          <div class="chip-grid">
+            {% for skill in skills %}
+              <span class="skill-chip">{{ skill }}</span>
+            {% endfor %}
+          </div>
+          <p class="support-note mt-4">You can replace this section later with your exact coursework, experience bullets, GPA, internships, or downloadable resume link.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

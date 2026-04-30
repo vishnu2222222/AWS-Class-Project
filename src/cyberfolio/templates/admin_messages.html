@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Messages | {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container page-header-inline">
+    <div>
+      <span class="eyebrow">Admin Dashboard</span>
+      <h1>Saved contact submissions</h1>
+      <p>This page demonstrates dynamic content pulled from the SQLite database.</p>
+    </div>
+    <form method="post" action="{{ url_for('admin_logout') }}">
+      <button type="submit" class="btn btn-outline-light">Log Out</button>
+    </form>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <article class="content-card">
+      {% if messages %}
+        <div class="table-responsive">
+          <table class="table align-middle admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Received</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Subject</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for message in messages %}
+                <tr>
+                  <td>{{ message.id }}</td>
+                  <td>{{ message.created_at }}</td>
+                  <td>{{ message.name }}</td>
+                  <td><a href="mailto:{{ message.email }}">{{ message.email }}</a></td>
+                  <td>{{ message.subject }}</td>
+                  <td class="message-cell">{{ message.message }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="mb-0">No messages have been submitted yet.</p>
+      {% endif %}
+    </article>
+  </div>
+</section>
+{% endblock %}
+

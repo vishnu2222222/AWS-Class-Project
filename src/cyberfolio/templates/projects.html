@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Projects | {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Projects</span>
+    <h1>Selected cybersecurity and cloud-focused work</h1>
+    <p>These sample projects are written to sound professional now, while still being easy to replace with your exact class and personal work later.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="row g-4">
+      {% for project in projects %}
+        <div class="col-lg-4">
+          <article class="content-card h-100">
+            <p class="card-kicker">{{ project.stack }}</p>
+            <h2>{{ project.title }}</h2>
+            <p>{{ project.summary }}</p>
+            <p class="card-outcome">{{ project.outcome }}</p>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+

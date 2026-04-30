@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Home | {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <span class="eyebrow">Cloud Security Portfolio</span>
+        <h1 class="display-4 hero-title">Building secure, practical, AWS-ready cybersecurity work.</h1>
+        <p class="hero-copy">This website highlights projects, skills, certifications, and services centered on cloud security, documentation, and dependable deployment. It is also a live demonstration of a database-backed Flask application hosted with AWS in mind.</p>
+        <div class="hero-actions">
+          <a class="btn btn-accent btn-lg" href="{{ url_for('projects') }}">View Projects</a>
+          <a class="btn btn-outline-light btn-lg" href="{{ url_for('contact') }}">Contact Me</a>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric-card">
+            <span class="metric-value">9</span>
+            <span class="metric-label">Core pages</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value">1</span>
+            <span class="metric-label">Dynamic contact workflow</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value">AWS</span>
+            <span class="metric-label">Deployment target</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="hero-panel">
+          <p class="panel-label">Current focus</p>
+          <ul class="signal-list">
+            <li>Secure cloud deployment foundations</li>
+            <li>Portfolio projects with real operational value</li>
+            <li>Clear communication during incident response</li>
+          </ul>
+          <div class="status-strip">
+            <span class="status-dot"></span>
+            <span>Available for internships, project collaboration, and entry-level security work</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Featured Work</span>
+      <h2>Projects that show practical security thinking</h2>
+    </div>
+    <div class="row g-4">
+      {% for project in projects %}
+        <div class="col-md-6">
+          <article class="content-card h-100">
+            <p class="card-kicker">{{ project.stack }}</p>
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.summary }}</p>
+            <p class="card-outcome">{{ project.outcome }}</p>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-muted">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Services</span>
+      <h2>Focused help for cloud and security fundamentals</h2>
+    </div>
+    <div class="row g-4">
+      {% for service in services %}
+        <div class="col-md-6">
+          <article class="content-card h-100">
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+

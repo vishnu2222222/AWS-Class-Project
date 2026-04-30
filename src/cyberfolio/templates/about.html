@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}About | {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">About Me</span>
+    <h1>Cybersecurity student with a builder’s mindset</h1>
+    <p>I am developing a portfolio around cloud security, secure web deployment, and communication-heavy security work. My goal is to combine technical execution with documentation that makes systems easier to defend and maintain.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <article class="content-card h-100">
+          <h2>What this site represents</h2>
+          <p>This project is both a portfolio website and a demonstration of full-stack cloud deployment fundamentals. It includes server-side rendering, a database-backed contact form, session-based admin access, and an AWS-ready deployment path using Lightsail.</p>
+          <p>My broader interest is in security work that is hands-on, measurable, and useful to teams: reducing configuration risk, improving documentation, and making response workflows easier to execute under pressure.</p>
+        </article>
+      </div>
+      <div class="col-lg-5">
+        <article class="content-card h-100">
+          <h2>Core skills</h2>
+          <div class="chip-grid">
+            {% for skill in skills %}
+              <span class="skill-chip">{{ skill }}</span>
+            {% endfor %}
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

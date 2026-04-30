@@ -1,0 +1,15 @@
+[Unit]
+Description=CyberFolio Flask application
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/cyberfolio
+EnvironmentFile=/home/ubuntu/cyberfolio/.env.production
+ExecStart=/home/ubuntu/cyberfolio/.venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 run:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

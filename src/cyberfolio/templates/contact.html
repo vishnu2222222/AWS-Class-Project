@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Contact</span>
+    <h1>Start a conversation</h1>
+    <p>This form stores submissions in SQLite and powers the dynamic admin/messages page required for the project’s database functionality.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <article class="content-card">
+          <form id="contactForm" method="post" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control form-control-lg" id="name" name="name" value="{{ form_data.name }}" required>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control form-control-lg" id="email" name="email" value="{{ form_data.email }}" required>
+              </div>
+              <div class="col-12">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" class="form-control form-control-lg" id="subject" name="subject" value="{{ form_data.subject }}" required>
+              </div>
+              <div class="col-12">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control form-control-lg" id="message" name="message" rows="6" required>{{ form_data.message }}</textarea>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-accent btn-lg">Send Message</button>
+              </div>
+            </div>
+          </form>
+        </article>
+      </div>
+      <div class="col-lg-5">
+        <article class="content-card h-100">
+          <h2>Why this matters for the project</h2>
+          <ul class="feature-list">
+            <li>Shows server-side validation</li>
+            <li>Stores submissions in a database table</li>
+            <li>Feeds a protected admin view dynamically</li>
+            <li>Demonstrates full-stack AWS deployment readiness</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (() => {
+    const form = document.getElementById("contactForm");
+    if (!form) return;
+
+    form.addEventListener("submit", (event) => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add("was-validated");
+    });
+  })();
+</script>
+{% endblock %}
+

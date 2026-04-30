@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cyberfolio-site"
+version = "0.1.0"
+description = "Cybersecurity portfolio and services website built with Flask and SQLite."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "Flask>=3.0,<4.0",
+  "gunicorn>=23.0,<24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0,<10.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

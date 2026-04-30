@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Services | {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Services</span>
+    <h1>Entry-level security services with a practical focus</h1>
+    <p>This page presents the website as a personal brand and services platform, which aligns well with the project rubric while staying believable for a student portfolio.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="row g-4">
+      {% for service in services %}
+        <div class="col-lg-4">
+          <article class="content-card h-100">
+            <h2>{{ service.title }}</h2>
+            <p>{{ service.description }}</p>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+

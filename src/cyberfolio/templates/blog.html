@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Blog | {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Blog / Articles</span>
+    <h1>Short writing samples on security and cloud operations</h1>
+    <p>For the MVP, the blog content is static. This keeps the project focused while still showing how an articles section would look on a real portfolio website.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="row g-4">
+      {% for post in posts %}
+        <div class="col-lg-4">
+          <article class="content-card h-100">
+            <p class="card-kicker">{{ post.date }}</p>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.excerpt }}</p>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
