@@ -56,14 +56,15 @@ def test_public_pages_load(client):
 def test_updated_portfolio_content_is_rendered(client):
     home_response = client.get("/")
     assert b"Vishnu Gangula | CyberFolio" in home_response.data
-    assert b"Download Redacted Resume" in home_response.data
+    assert b"Download Resume" in home_response.data
+    assert b"6,000+" in home_response.data
 
     about_response = client.get("/about")
     assert b"builder's mindset" in about_response.data
     assert b"linkedin.com/in/vishnugangula" in about_response.data
 
     resume_response = client.get("/resume")
-    assert b"Information Security Intern" in resume_response.data
+    assert b"Vulnerability Management Intern" in resume_response.data
     assert b"The University of Texas at Dallas" in resume_response.data
 
 

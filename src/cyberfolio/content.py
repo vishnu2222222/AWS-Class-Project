@@ -9,7 +9,7 @@ REDIRECTED_RESUME_FILENAME = "resume/vishnu-gangula-resume-redacted.pdf"
 
 PROFILE = {
     "name": "Vishnu Gangula",
-    "headline": "Cybersecurity student and information security intern",
+    "headline": "Cybersecurity student and vulnerability management intern",
     "subheadline": (
         "Focused on vulnerability management, cloud deployment, and documentation "
         "that helps teams respond faster and operate more clearly."
@@ -48,7 +48,49 @@ SOCIAL_LINKS = [
 HOME_METRICS = [
     {"value": "4M+", "label": "Vulnerabilities surfaced through dashboard reporting"},
     {"value": "32", "label": "Business units onboarded into Qualys workflows"},
-    {"value": "600+", "label": "Devices added to authenticated scan coverage"},
+    {"value": "6,000+", "label": "Devices added to authenticated scan coverage"},
+]
+
+HOME_SPOTLIGHTS = [
+    {
+        "label": "Security Operations",
+        "title": "Turning vulnerability data into remediation direction",
+        "summary": (
+            "I like work that moves past counting issues and helps teams understand "
+            "what needs attention, why it matters, and who should act next."
+        ),
+        "points": [
+            "Built reporting around 4M+ surfaced vulnerabilities and operational KPIs",
+            "Used scan coverage and prioritization work to reduce blind spots",
+            "Weekly triage combined exposure context with remediation follow-through",
+        ],
+    },
+    {
+        "label": "Cloud Delivery",
+        "title": "Shipping web projects with production-minded deployment",
+        "summary": (
+            "I use AWS-hosted portfolio work to prove I can take an app beyond local "
+            "development and think through hosting, reverse proxying, and reliability."
+        ),
+        "points": [
+            "Flask, SQLite, Gunicorn, and Nginx tied together in one deployed project",
+            "Built routes, forms, and protected admin flows instead of static pages only",
+            "Focused on infrastructure choices that are simple to explain and maintain",
+        ],
+    },
+    {
+        "label": "Documentation",
+        "title": "Making technical work easier for teams to run well",
+        "summary": (
+            "Clear write-ups, process notes, and escalation context are part of good "
+            "security work because they reduce confusion when the pace picks up."
+        ),
+        "points": [
+            "Turned operational details into documentation that teams can act on quickly",
+            "Used support and escalation experience to value clarity under pressure",
+            "Treat documentation as part of security execution, not an afterthought",
+        ],
+    },
 ]
 
 ABOUT_SECTIONS = [
@@ -91,39 +133,53 @@ EDUCATION = {
 
 EXPERIENCE = [
     {
-        "role": "Information Security Intern",
+        "role": "Vulnerability Management Intern",
         "company": "Cencora, Inc. (AmerisourceBergen)",
         "location": "Carrollton, TX",
         "dates": "Jun 2025 - Present",
         "summary": (
-            "Support enterprise vulnerability management by improving visibility, "
-            "scan coverage, remediation prioritization, and cross-team follow-through."
+            "Support enterprise vulnerability management through reporting, scan "
+            "coverage expansion, telemetry validation, and remediation prioritization."
         ),
         "bullets": [
             (
                 "Developed the organization's first automated endpoint vulnerability "
-                "dashboard in Power BI, surfacing 4M+ vulnerabilities and tracking "
-                "KPIs, KRIs, MTTR, and SLA thresholds."
+                "dashboard in Power BI, centralizing visibility across 4M+ "
+                "vulnerabilities and helping drive remediation of 2M+ high-severity "
+                "issues through KPI, KRI, MTTR, and SLA tracking."
             ),
             (
-                "Onboarded 32 newly acquired business units into Qualys and expanded "
-                "authenticated scan coverage to 600+ devices."
+                "Onboarded 32 newly acquired business units into Qualys by validating "
+                "inventories, creating asset groups, scheduling weekly scans, and "
+                "expanding authenticated scan coverage to 6,000+ devices."
             ),
             (
                 "Reduced unmonitored systems from 1,400+ to under 450 by analyzing "
-                "coverage gaps and tuning scan policies."
+                "coverage gaps and tuning scan policies across enterprise assets."
             ),
             (
                 "Restored visibility for 15,000+ endpoints affected by telemetry gaps "
                 "and coordinated fixes with engineering teams."
             ),
             (
-                "Performed weekly threat triage on emerging CVEs and zero-days using "
-                "CVSS v3.1, EPSS, and DREAD-informed prioritization."
+                "Diagnosed and resolved six major Qualys platform issues including "
+                "false positives, asset duplication, and data integrity gaps by "
+                "performing manual validation and coordinating with vendor support."
+            ),
+            (
+                "Conducted weekly threat hunting and emerging vulnerability triage on "
+                "actively exploited CVEs and zero-days using CVSS v3.1, EPSS, and "
+                "DREAD-based risk assessment to drive rapid remediation."
+            ),
+            (
+                "Verified remediation effectiveness by re-running Qualys scans on "
+                "patched and reconfigured assets to confirm findings were actually "
+                "closed and risk reporting stayed accurate."
             ),
             (
                 "Led remediation discussions across infrastructure, endpoint, and "
-                "application teams to improve accountability and SLA adherence."
+                "application teams, communicating risk posture and actionable "
+                "recommendations to improve SLA compliance."
             ),
         ],
     },
@@ -177,7 +233,7 @@ SKILL_GROUPS = [
     },
     {
         "title": "Programming and Automation",
-        "items": ["Python", "Java", "C++", "Git", "GitHub"],
+        "items": ["Python", "Java", "C++", "Git", "GitHub", "PowerShell"],
     },
     {
         "title": "Data and Reporting",

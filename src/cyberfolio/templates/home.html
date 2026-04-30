@@ -5,50 +5,89 @@
 {% block content %}
 <section class="hero-section">
   <div class="container">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-7">
-        <span class="eyebrow">Cybersecurity Portfolio</span>
-        <h1 class="display-4 hero-title">Vulnerability management, AWS deployment, and security work built to be useful.</h1>
-        <p class="hero-copy">{{ profile.summary }} {{ profile.subheadline }}</p>
-        <div class="hero-actions">
-          <a class="btn btn-accent btn-lg" href="{{ url_for('projects') }}">View Projects</a>
-          <a class="btn btn-outline-light btn-lg" href="{{ url_for('resume') }}">View Resume</a>
-          <a class="btn btn-ghost btn-lg" href="{{ url_for('static', filename=resume_download_filename) }}" target="_blank" rel="noreferrer">Download Redacted Resume</a>
+    {% set active_spotlight = focus_spotlights[0] %}
+    <div class="hero-shell">
+      <div class="row align-items-start g-5">
+        <div class="col-xl-7">
+          <span class="eyebrow">Cybersecurity Portfolio</span>
+          <p class="hero-lead-in">Security operations, cloud deployment, and documentation that hold up in real environments.</p>
+          <h1 class="display-3 hero-title">Vulnerability management, AWS deployment, and security work built to be useful.</h1>
+          <p class="hero-copy">{{ profile.summary }} {{ profile.subheadline }}</p>
+          <div class="hero-actions">
+            <a class="btn btn-accent btn-lg" href="{{ url_for('projects') }}">View Projects</a>
+            <a class="btn btn-outline-light btn-lg" href="{{ url_for('resume') }}">View Resume</a>
+            <a class="btn btn-ghost btn-lg" href="{{ url_for('static', filename=resume_download_filename) }}" target="_blank" rel="noreferrer">Download Resume</a>
+          </div>
+          <div class="social-strip">
+            {% for link in social_links %}
+              <a class="social-link" href="{{ link.url }}" target="_blank" rel="noreferrer">{{ link.label }}</a>
+            {% endfor %}
+          </div>
         </div>
-        <div class="social-strip">
-          {% for link in social_links %}
-            <a class="social-link" href="{{ link.url }}" target="_blank" rel="noreferrer">{{ link.label }}</a>
-          {% endfor %}
-        </div>
-        <div class="hero-metrics">
-          {% for metric in metrics %}
-            <div class="metric-card">
-              <span class="metric-value">{{ metric.value }}</span>
-              <span class="metric-label">{{ metric.label }}</span>
+        <div class="col-xl-5">
+          <aside class="hero-panel" data-focus-root>
+            <div class="hero-panel-top">
+              <div>
+                <p class="panel-label">Focus Lens</p>
+                <h2 class="panel-title">See the portfolio from three angles</h2>
+              </div>
+              <span class="panel-chip">Interactive snapshot</span>
             </div>
-          {% endfor %}
+            <p class="panel-copy">A quick way to understand the kind of value I want my projects and experience to show.</p>
+            <div class="focus-switch" role="group" aria-label="Portfolio focus areas">
+              {% for spotlight in focus_spotlights %}
+                <button
+                  type="button"
+                  class="{% if loop.first %}is-active{% endif %}"
+                  data-focus-trigger
+                  data-index="{{ loop.index0 }}"
+                  aria-pressed="{% if loop.first %}true{% else %}false{% endif %}"
+                >
+                  {{ spotlight.label }}
+                </button>
+              {% endfor %}
+            </div>
+            <div class="focus-spotlight">
+              <p class="focus-spotlight-label" data-focus-label>{{ active_spotlight.label }}</p>
+              <h3 data-focus-title>{{ active_spotlight.title }}</h3>
+              <p data-focus-summary>{{ active_spotlight.summary }}</p>
+              <ul class="signal-list focus-list" data-focus-list>
+                {% for point in active_spotlight.points %}
+                  <li>{{ point }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="hero-panel-details">
+              <div class="profile-note">
+                <span class="profile-note-label">Based in</span>
+                <strong>{{ profile.location }}</strong>
+              </div>
+              <div class="profile-note">
+                <span class="profile-note-label">Education</span>
+                <strong>{{ profile.education_short }}</strong>
+              </div>
+            </div>
+            <div class="status-strip">
+              <span class="status-dot"></span>
+              <span>{{ profile.availability }}</span>
+            </div>
+          </aside>
         </div>
       </div>
-      <div class="col-lg-5">
-        <div class="hero-panel">
-          <p class="panel-label">Current focus</p>
-          <ul class="signal-list">
-            {% for item in profile.current_focus %}
-              <li>{{ item }}</li>
-            {% endfor %}
-          </ul>
-          <div class="profile-note">
-            <span class="profile-note-label">Based in</span>
-            <strong>{{ profile.location }}</strong>
+      <div class="hero-metrics">
+        {% for metric in metrics %}
+          <div class="metric-card">
+            <span class="metric-value">{{ metric.value }}</span>
+            <span class="metric-label">{{ metric.label }}</span>
           </div>
-          <div class="profile-note">
-            <span class="profile-note-label">Education</span>
-            <strong>{{ profile.education_short }}</strong>
-          </div>
-          <div class="status-strip">
-            <span class="status-dot"></span>
-            <span>{{ profile.availability }}</span>
-          </div>
+        {% endfor %}
+      </div>
+      <div class="hero-context">
+        <p class="hero-context-label">Current focus</p>
+        <div class="hero-context-items">
+          {% for item in profile.current_focus %}
+            <span class="context-pill">{{ item }}</span>
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -66,7 +105,10 @@
       {% for project in projects %}
         <div class="col-lg-4">
           <article class="content-card h-100 project-card">
-            <p class="card-kicker">{{ project.kicker }}</p>
+            <div class="project-card-head">
+              <p class="card-kicker">{{ project.kicker }}</p>
+              <span class="project-index">0{{ loop.index }}</span>
+            </div>
             <h3>{{ project.title }}</h3>
             <p>{{ project.summary }}</p>
             <div class="tag-row">
@@ -122,4 +164,48 @@
     </div>
   </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (() => {
+    const root = document.querySelector("[data-focus-root]");
+    if (!root) return;
+
+    const spotlights = {{ focus_spotlights | tojson }};
+    const buttons = Array.from(root.querySelectorAll("[data-focus-trigger]"));
+    const label = root.querySelector("[data-focus-label]");
+    const title = root.querySelector("[data-focus-title]");
+    const summary = root.querySelector("[data-focus-summary]");
+    const list = root.querySelector("[data-focus-list]");
+
+    const render = (index) => {
+      const spotlight = spotlights[index];
+      if (!spotlight) return;
+
+      label.textContent = spotlight.label;
+      title.textContent = spotlight.title;
+      summary.textContent = spotlight.summary;
+      list.replaceChildren(
+        ...spotlight.points.map((point) => {
+          const item = document.createElement("li");
+          item.textContent = point;
+          return item;
+        }),
+      );
+
+      buttons.forEach((button, buttonIndex) => {
+        const isActive = buttonIndex === index;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        render(Number(button.dataset.index));
+      });
+    });
+  })();
+</script>
 {% endblock %}
