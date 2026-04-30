@@ -4,109 +4,86 @@
 
 {% block content %}
 <section class="hero-section">
-  <div class="container">
-    {% set active_spotlight = focus_spotlights[0] %}
-    <div class="hero-shell">
-      <div class="row align-items-start g-5">
-        <div class="col-xl-7">
-          <span class="eyebrow">Cybersecurity Portfolio</span>
-          <p class="hero-lead-in">Security operations, cloud deployment, and documentation that hold up in real environments.</p>
-          <h1 class="display-3 hero-title">Vulnerability management, AWS deployment, and security work built to be useful.</h1>
-          <p class="hero-copy">{{ profile.summary }} {{ profile.subheadline }}</p>
-          <div class="hero-actions">
-            <a class="btn btn-accent btn-lg" href="{{ url_for('projects') }}">View Projects</a>
-            <a class="btn btn-outline-light btn-lg" href="{{ url_for('resume') }}">View Resume</a>
-            <a class="btn btn-ghost btn-lg" href="{{ asset_url(resume_download_filename) }}" target="_blank" rel="noreferrer">Download Resume</a>
-          </div>
-          <div class="social-strip">
-            {% for link in social_links %}
-              <a class="social-link" href="{{ link.url }}" target="_blank" rel="noreferrer">{{ link.label }}</a>
-            {% endfor %}
-          </div>
+  <div class="container shell-container">
+    <article class="panel hero-card">
+      <div class="hero-banner" aria-hidden="true">
+        <span class="hero-sun"></span>
+        <span class="hero-wave hero-wave-one"></span>
+        <span class="hero-wave hero-wave-two"></span>
+        <span class="hero-wave hero-wave-three"></span>
+      </div>
+      <div class="hero-content">
+        <span class="eyebrow meta-label">Cybersecurity Portfolio</span>
+        <h1 class="hero-name">{{ profile.name }}</h1>
+        <p class="hero-lead">{{ profile.headline }}</p>
+        <p class="hero-copy">{{ profile.summary }} {{ profile.subheadline }}</p>
+        <div class="hero-actions">
+          <a class="btn btn-accent btn-lg pill-button" href="{{ url_for('projects') }}">View Projects</a>
+          <a class="btn btn-outline-light btn-lg pill-button" href="{{ url_for('resume') }}">View Resume</a>
+          <a class="btn btn-ghost btn-lg pill-button" href="{{ asset_url(resume_download_filename) }}" target="_blank" rel="noreferrer">Download Resume</a>
         </div>
-        <div class="col-xl-5">
-          <aside class="hero-panel" data-focus-root>
-            <div class="hero-panel-top">
-              <div>
-                <p class="panel-label">Focus Lens</p>
-                <h2 class="panel-title">See the portfolio from three angles</h2>
-              </div>
-              <span class="panel-chip">Interactive snapshot</span>
-            </div>
-            <p class="panel-copy">A quick way to understand the kind of value I want my projects and experience to show.</p>
-            <div class="focus-switch" role="group" aria-label="Portfolio focus areas">
-              {% for spotlight in focus_spotlights %}
-                <button
-                  type="button"
-                  class="{% if loop.first %}is-active{% endif %}"
-                  data-focus-trigger
-                  data-index="{{ loop.index0 }}"
-                  aria-pressed="{% if loop.first %}true{% else %}false{% endif %}"
-                >
-                  {{ spotlight.label }}
-                </button>
-              {% endfor %}
-            </div>
-            <div class="focus-spotlight">
-              <p class="focus-spotlight-label" data-focus-label>{{ active_spotlight.label }}</p>
-              <h3 data-focus-title>{{ active_spotlight.title }}</h3>
-              <p data-focus-summary>{{ active_spotlight.summary }}</p>
-              <ul class="signal-list focus-list" data-focus-list>
-                {% for point in active_spotlight.points %}
-                  <li>{{ point }}</li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="hero-panel-details">
-              <div class="profile-note">
-                <span class="profile-note-label">Based in</span>
-                <strong>{{ profile.location }}</strong>
-              </div>
-              <div class="profile-note">
-                <span class="profile-note-label">Education</span>
-                <strong>{{ profile.education_short }}</strong>
-              </div>
-            </div>
-            <div class="status-strip">
-              <span class="status-dot"></span>
-              <span>{{ profile.availability }}</span>
-            </div>
-          </aside>
+        <div class="social-strip">
+          {% for link in social_links %}
+            <a class="social-link pill-button" href="{{ link.url }}" target="_blank" rel="noreferrer">{{ link.label }}</a>
+          {% endfor %}
+        </div>
+        <div class="chip-row">
+          {% for item in profile.current_focus %}
+            <span class="chip">{{ item }}</span>
+          {% endfor %}
         </div>
       </div>
       <div class="hero-metrics">
         {% for metric in metrics %}
-          <div class="metric-card">
+          <div class="data-tile">
             <span class="metric-value">{{ metric.value }}</span>
             <span class="metric-label">{{ metric.label }}</span>
           </div>
         {% endfor %}
       </div>
-      <div class="hero-context">
-        <p class="hero-context-label">Current focus</p>
-        <div class="hero-context-items">
-          {% for item in profile.current_focus %}
-            <span class="context-pill">{{ item }}</span>
-          {% endfor %}
+    </article>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container shell-container">
+    <div class="section-heading">
+      <span class="eyebrow meta-label">Portfolio Perspective</span>
+      <h2>How I approach security and cloud work</h2>
+      <p class="section-copy">A static snapshot of the three lenses that shape how I prioritize projects and outcomes.</p>
+    </div>
+    <div class="row g-4">
+      {% for spotlight in focus_spotlights %}
+        <div class="col-lg-4">
+          <article class="section-card panel h-100">
+            <p class="card-kicker meta-label">{{ spotlight.label }}</p>
+            <h3>{{ spotlight.title }}</h3>
+            <p>{{ spotlight.summary }}</p>
+            <ul class="feature-list">
+              {% for point in spotlight.points %}
+                <li>{{ point }}</li>
+              {% endfor %}
+            </ul>
+          </article>
         </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
 
 <section class="content-section">
-  <div class="container">
+  <div class="container shell-container">
     <div class="section-heading">
-      <span class="eyebrow">Featured Work</span>
+      <span class="eyebrow meta-label">Featured Work</span>
       <h2>Projects that connect security thinking with shipped work</h2>
       <p class="section-copy">These are the three repositories I am using to represent my current portfolio: security analytics, front-end product work, and AWS-hosted deployment.</p>
     </div>
     <div class="row g-4">
       {% for project in projects %}
         <div class="col-lg-4">
-          <article class="content-card h-100 project-card">
+          <article class="section-card panel h-100 project-card">
             <div class="project-card-head">
-              <p class="card-kicker">{{ project.kicker }}</p>
+              <p class="card-kicker meta-label">{{ project.kicker }}</p>
               <span class="project-index">0{{ loop.index }}</span>
             </div>
             <h3>{{ project.title }}</h3>
@@ -126,16 +103,16 @@
 </section>
 
 <section class="content-section section-muted">
-  <div class="container">
+  <div class="container shell-container">
     <div class="section-heading">
-      <span class="eyebrow">Experience Snapshot</span>
+      <span class="eyebrow meta-label">Experience Snapshot</span>
       <h2>How my recent work translates into this portfolio</h2>
     </div>
     <div class="row g-4">
       {% for role in experience %}
         <div class="col-lg-6">
-          <article class="content-card h-100">
-            <p class="card-kicker">{{ role.dates }}</p>
+          <article class="section-card panel h-100">
+            <p class="card-kicker meta-label">{{ role.dates }}</p>
             <h3>{{ role.role }}</h3>
             <p class="role-meta">{{ role.company }} | {{ role.location }}</p>
             <p>{{ role.summary }}</p>
@@ -147,15 +124,15 @@
 </section>
 
 <section class="content-section">
-  <div class="container">
+  <div class="container shell-container">
     <div class="section-heading">
-      <span class="eyebrow">Focus Areas</span>
+      <span class="eyebrow meta-label">Focus Areas</span>
       <h2>Where I contribute best</h2>
     </div>
     <div class="row g-4">
       {% for area in focus_areas %}
         <div class="col-lg-4">
-          <article class="content-card h-100">
+          <article class="section-card panel h-100">
             <h3>{{ area.title }}</h3>
             <p>{{ area.description }}</p>
           </article>
@@ -164,48 +141,4 @@
     </div>
   </div>
 </section>
-{% endblock %}
-
-{% block scripts %}
-<script>
-  (() => {
-    const root = document.querySelector("[data-focus-root]");
-    if (!root) return;
-
-    const spotlights = {{ focus_spotlights | tojson }};
-    const buttons = Array.from(root.querySelectorAll("[data-focus-trigger]"));
-    const label = root.querySelector("[data-focus-label]");
-    const title = root.querySelector("[data-focus-title]");
-    const summary = root.querySelector("[data-focus-summary]");
-    const list = root.querySelector("[data-focus-list]");
-
-    const render = (index) => {
-      const spotlight = spotlights[index];
-      if (!spotlight) return;
-
-      label.textContent = spotlight.label;
-      title.textContent = spotlight.title;
-      summary.textContent = spotlight.summary;
-      list.replaceChildren(
-        ...spotlight.points.map((point) => {
-          const item = document.createElement("li");
-          item.textContent = point;
-          return item;
-        }),
-      );
-
-      buttons.forEach((button, buttonIndex) => {
-        const isActive = buttonIndex === index;
-        button.classList.toggle("is-active", isActive);
-        button.setAttribute("aria-pressed", String(isActive));
-      });
-    };
-
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => {
-        render(Number(button.dataset.index));
-      });
-    });
-  })();
-</script>
 {% endblock %}

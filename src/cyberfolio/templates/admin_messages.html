@@ -4,9 +4,9 @@
 
 {% block content %}
 <section class="page-header">
-  <div class="container page-header-inline">
+  <div class="container shell-container page-header-inline">
     <div>
-      <span class="eyebrow">Admin Dashboard</span>
+      <span class="eyebrow meta-label">Admin Dashboard</span>
       <h1>Saved contact submissions</h1>
       <p>This page demonstrates dynamic content pulled from the SQLite database.</p>
     </div>
@@ -17,8 +17,8 @@
 </section>
 
 <section class="content-section">
-  <div class="container">
-    <article class="content-card">
+  <div class="container shell-container">
+    <article class="section-card panel">
       {% if messages %}
         <div class="table-responsive">
           <table class="table align-middle admin-table">

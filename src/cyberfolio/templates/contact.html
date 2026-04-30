@@ -4,18 +4,18 @@
 
 {% block content %}
 <section class="page-header">
-  <div class="container">
-    <span class="eyebrow">Contact</span>
+  <div class="container shell-container">
+    <span class="eyebrow meta-label">Contact</span>
     <h1>Start a conversation</h1>
     <p>The form on this page stores submissions in SQLite and powers the protected admin dashboard, so it doubles as both a contact method and the site's dynamic database feature.</p>
   </div>
 </section>
 
 <section class="content-section">
-  <div class="container">
+  <div class="container shell-container">
     <div class="row g-4">
       <div class="col-lg-7">
-        <article class="content-card">
+        <article class="section-card panel">
           <form id="contactForm" method="post" novalidate>
             <div class="row g-3">
               <div class="col-md-6">
@@ -42,7 +42,7 @@
         </article>
       </div>
       <div class="col-lg-5">
-        <article class="content-card h-100">
+        <article class="section-card panel h-100">
           <h2>Other ways to connect</h2>
           <div class="link-list mb-4">
             {% for link in social_links %}

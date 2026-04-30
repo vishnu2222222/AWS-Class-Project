@@ -4,25 +4,25 @@
 
 {% block content %}
 <section class="page-header">
-  <div class="container">
-    <span class="eyebrow">About Me</span>
+  <div class="container shell-container">
+    <span class="eyebrow meta-label">About Me</span>
     <h1>Cybersecurity student with a builder's mindset and an operations-first approach</h1>
     <p>{{ profile.summary }}</p>
   </div>
 </section>
 
 <section class="content-section">
-  <div class="container">
+  <div class="container shell-container">
     <div class="row g-4">
       <div class="col-lg-7">
-        <article class="content-card h-100">
+        <article class="section-card panel h-100">
           <h2>What this portfolio represents</h2>
           <p>This site is meant to feel like the kind of work I want to keep doing: practical, measurable, and grounded in real systems. It highlights the overlap between security operations, cloud deployment, and technical communication.</p>
           <p>I am especially interested in work where better visibility and clearer process reduce risk. That includes vulnerability management, exposure reduction, incident support, and infrastructure that is simple enough to run reliably.</p>
         </article>
       </div>
       <div class="col-lg-5">
-        <article class="content-card h-100">
+        <article class="section-card panel h-100">
           <h2>Public profiles</h2>
           <div class="link-list">
             {% for link in social_links %}
@@ -39,11 +39,11 @@
 </section>
 
 <section class="content-section section-muted">
-  <div class="container">
+  <div class="container shell-container">
     <div class="row g-4">
       {% for section in about_sections %}
         <div class="col-lg-4">
-          <article class="content-card h-100">
+          <article class="section-card panel h-100">
             <h2>{{ section.title }}</h2>
             <p>{{ section.body }}</p>
           </article>
@@ -54,15 +54,15 @@
 </section>
 
 <section class="content-section">
-  <div class="container">
+  <div class="container shell-container">
     <div class="section-heading">
-      <span class="eyebrow">Toolkit</span>
+      <span class="eyebrow meta-label">Toolkit</span>
       <h2>Core tools and platforms I work with</h2>
     </div>
     <div class="row g-4">
       {% for group in skill_groups %}
         <div class="col-lg-6">
-          <article class="content-card h-100">
+          <article class="section-card panel h-100">
             <h3>{{ group.title }}</h3>
             <div class="chip-grid">
               {% for item in group["items"] %}

@@ -4,20 +4,20 @@
 
 {% block content %}
 <section class="page-header">
-  <div class="container">
-    <span class="eyebrow">Insights</span>
+  <div class="container shell-container">
+    <span class="eyebrow meta-label">Insights</span>
     <h1>Short writing samples tied to the work I care about most</h1>
     <p>These static posts are meant to sound like the kinds of security and cloud topics I would continue writing about as the portfolio grows.</p>
   </div>
 </section>
 
 <section class="content-section">
-  <div class="container">
+  <div class="container shell-container">
     <div class="row g-4">
       {% for post in posts %}
         <div class="col-lg-4">
-          <article class="content-card h-100">
-            <p class="card-kicker">{{ post.date }}</p>
+          <article class="section-card panel h-100">
+            <p class="card-kicker meta-label">{{ post.date }}</p>
             <h2>{{ post.title }}</h2>
             <p>{{ post.excerpt }}</p>
           </article>

@@ -4,20 +4,20 @@
 
 {% block content %}
 <section class="page-header">
-  <div class="container">
-    <span class="eyebrow">Projects</span>
+  <div class="container shell-container">
+    <span class="eyebrow meta-label">Projects</span>
     <h1>Projects tied to my real repositories and current interests</h1>
     <p>Each project below maps to a public GitHub repository and highlights a different strength: security analytics, modern front-end development, and AWS-ready Flask deployment.</p>
   </div>
 </section>
 
 <section class="content-section">
-  <div class="container">
+  <div class="container shell-container">
     <div class="row g-4">
       {% for project in projects %}
         <div class="col-lg-4">
-          <article class="content-card h-100 project-card">
-            <p class="card-kicker">{{ project.kicker }}</p>
+          <article class="section-card panel h-100 project-card">
+            <p class="card-kicker meta-label">{{ project.kicker }}</p>
             <h2>{{ project.title }}</h2>
             <p>{{ project.summary }}</p>
             <div class="tag-row">
